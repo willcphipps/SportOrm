@@ -66,7 +66,7 @@ namespace SportsORM.Controllers
             // ViewBag.Flores = context.Teams.Include(f => f.CurrentPlayers).Where(f => f.CurrentPlayers.All(l => l.LastName == "Flores"));
             ViewBag.Flores = context.Players.Include(f => f.CurrentTeam).Where(f => f.LastName == "Flores").ToList();
             ViewBag.TigerCats = context.Players.Include(f => f.CurrentTeam).Where(f => f.CurrentTeam.TeamName == "Tiger-Cats").ToList();
-            ViewBag.Twelvers = context.Teams.Include(w => w.CurrentPlayers).Where(w => w.CurrentPlayers.Count > 13).ToList();
+            ViewBag.Twelvers = context.Teams.Include(w => w.AllPlayers).Where(w => w.AllPlayers.Count > 13).ToList();
             ViewBag.AllTeams = context.Teams.Include(a => a.CurrentPlayers).Where(w => w.CurrentPlayers.Count > 1);
             return View();
         }
