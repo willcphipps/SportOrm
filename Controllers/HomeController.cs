@@ -56,6 +56,18 @@ namespace SportsORM.Controllers
         [HttpGet("level_2")]
         public IActionResult Level2()
         {
+            ViewBag.Atlantic = context.Teams.Include(l => l.CurrLeague).Where(l => l.CurrLeague.Name.Contains("Atlantic")).ToList();
+            ViewBag.Penguins = context.Players.Include(p => p.CurrentTeam).Where(p => p.CurrentTeam.TeamName == "Penguins").ToList();
+            // ViewBag.ICBC = context.Leagues.Where(l => l.Name == "International Collegiate Baseball Conference").Include(t => t.Teams).ToList();
+            ViewBag.ICBC = context.Teams.Include(i => i.CurrLeague).Where(i => i.CurrLeague.Name == "International Collegiate Baseball Conference").ToList();
+            ViewBag.ACAF = context.Teams.Include(i => i.CurrLeague).Where(i => i.CurrLeague.Name == "American Conference of Amateur Football").ToList();
+            ViewBag.Football = context.Teams.Include(i => i.CurrLeague).Where(i => i.CurrLeague.Sport == "Football").ToList();
+            ViewBag.Sophia = context.Teams.Include(t => t.CurrentPlayers).Where(s => s.CurrentPlayers.All(p => p.FirstName == "Sophia")).ToList();
+            // ViewBag.Flores = context.Teams.Include(f => f.CurrentPlayers).Where(f => f.CurrentPlayers.All(l => l.LastName == "Flores"));
+            ViewBag.Flores = context.Players.Include(f => f.CurrentTeam).Where(f => f.LastName == "Flores").ToList();
+            ViewBag.TigerCats = context.Players.Include(f => f.CurrentTeam).Where(f => f.CurrentTeam.TeamName == "Tiger-Cats").ToList();
+            ViewBag.Twelvers = context.Teams.Include(w => w.CurrentPlayers).Where(w => w.CurrentPlayers.Count > 13).ToList();
+            ViewBag.AllTeams = context.Teams.Include(a => a.CurrentPlayers).Where(w => w.CurrentPlayers.Count > 1);
             return View();
         }
 
